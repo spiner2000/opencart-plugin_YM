@@ -8,8 +8,10 @@ $_['text_success']       = 'Настройки модуля обновлены!'
 $_['text_select_all']    = 'Выделить всё';
 $_['text_unselect_all']  = 'Снять выделение';
 
-$_['entry_stock_status'] = 'Stock status';
-$_['entry_data_feed']     = 'Data Feed Url:';
+$_['entry_stock_status']    = 'Stock status';
+$_['entry_data_feed']       = 'Data Feed Url:';
+$_['entry_all_brands']      = 'All brands';
+$_['entry_option_in_stock'] = 'Show as products in stock (for Yandex.Market)';
 
 // Entry
 $_['entry_status']       = 'Статус:';

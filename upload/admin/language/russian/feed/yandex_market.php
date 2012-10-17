@@ -8,8 +8,10 @@ $_['text_success']       = 'Настройки модуля обновлены!'
 $_['text_select_all']    = 'Выделить всё';
 $_['text_unselect_all']  = 'Снять выделение';
 
-$_['entry_stock_status'] = 'Статус на складе';
-$_['entry_data_feed']    = 'Адрес ленты:';
+$_['entry_stock_status']    = 'Статус на складе';
+$_['entry_data_feed']       = 'Адрес ленты:';
+$_['entry_all_brands']      = 'Все бренды';
+$_['entry_option_in_stock'] = 'Отобразить товары как "в наличии" (для Яндекс Маркет)';
 
 // Entry
 $_['entry_status']       = 'Статус:';
