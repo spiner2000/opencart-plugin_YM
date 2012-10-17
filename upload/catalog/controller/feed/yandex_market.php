@@ -19,7 +19,7 @@ class ControllerFeedYandexMarket extends Controller
     {
         if ($this->config->get('yandex_market_status')) {
 
-            if (!($allowed_categories = $this->config->get('yandex_market_categories'))) exit();
+            if (!($allowed_categories = $this->config->get('yandex_market_categories'))) exit("no categories allowed");
 
             $this->load->model('export/yandex_market');
             $this->load->model('localisation/currency');
@@ -55,7 +55,6 @@ class ControllerFeedYandexMarket extends Controller
                     $this->setCurrency($currency['code'], number_format(1 / $this->currency->convert($currency['value'], $offers_currency, $shop_currency), 4, '.', ''));
                 }
             }
-
             // Категории
             $categories = $this->model_export_yandex_market->getCategory();
 
@@ -447,7 +446,7 @@ class ControllerFeedYandexMarket extends Controller
         $to = array('&quot;', '&amp;', '&gt;', '&lt;', '&apos;');
         $field = str_replace($from, $to, $field);
         if ($this->from_charset != 'windows-1251') {
-            $field = iconv($this->from_charset, 'windows-1251//IGNORE', $field);
+            $field = iconv($this->from_charset, 'windows-1251//IGNORE', string()$field);
         }
         $field = preg_replace('#[\x00-\x08\x0B-\x0C\x0E-\x1F]+#is', ' ', $field);
 

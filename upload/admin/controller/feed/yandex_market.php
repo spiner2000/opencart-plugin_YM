@@ -151,7 +151,7 @@ class ControllerFeedYandexMarket extends Controller
 
         $this->load->model('localisation/currency');
         $currencies = $this->model_localisation_currency->getCurrencies();
-        $allowed_currencies = array_flip(array('RUR', 'RUB', 'BYR', 'KZT', 'UAH'));
+        $allowed_currencies = array_flip(array('RUR', 'RUB', 'USD', 'BYR', 'KZT', 'EUR', 'UAH'));
         $this->data['currencies'] = array_intersect_key($currencies, $allowed_currencies);
 
         $this->template = 'feed/yandex_market.tpl';
@@ -253,7 +253,7 @@ class ControllerFeedYandexMarket extends Controller
 
                 $this->request->post['yandex_market_stock_brands'] = serialize($ym_stock_brands);
                 unset($key, $this->request->post['stock_status_id'], $this->request->post['products_available']);
-                $this->model_setting_setting->editSetting('yandex_market', $this->request->post);
+                $this->model_setting_setting->editSetting('yandex_market_br', $this->request->post);
                 $json = true;
             }
         }

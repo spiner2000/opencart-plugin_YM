@@ -69,6 +69,19 @@
                                 onclick="$(this).parent().find(':checkbox').attr('checked', false);"><?php echo $text_unselect_all; ?></a>
                         </td>
                     </tr>
+                    <tr>
+                        <td><?php echo $entry_currency; ?></td>
+                        <td><select name="yandex_market_currency">
+                            <?php foreach ($currencies as $currency) { ?>
+                            <?php if ($currency['code'] == $yandex_market_currency) { ?>
+                            <option value="<?php echo $currency['code']; ?>"
+                                    selected="selected"><?php echo '(' . $currency['code'] . ') ' . $currency['title']; ?></option>
+                            <?php } else { ?>
+                            <option value="<?php echo $currency['code']; ?>"><?php echo '(' . $currency['code'] . ') ' . $currency['title']; ?></option>
+                            <?php } ?>
+                            <?php } ?>
+                        </select></td>
+                    </tr>
                     <!-- BRANDS ADDED-->
                     <tr>
                         <td><?php echo $entry_stock_status; ?>
@@ -84,45 +97,6 @@
 
                         </td>
                         <td><div class="ajax-loader"><div id="brands_list" class="listBrandsCol"></div></div></td>
-                    </tr>
-                    <tr>
-                        <td><?php echo $entry_currency; ?></td>
-                        <td><select name="yandex_market_currency">
-                            <?php foreach ($currencies as $currency) { ?>
-                            <?php if ($currency['code'] == $yandex_market_currency) { ?>
-                            <option value="<?php echo $currency['code']; ?>"
-                                    selected="selected"><?php echo '(' . $currency['code'] . ') ' . $currency['title']; ?></option>
-                            <?php } else { ?>
-                            <option value="<?php echo $currency['code']; ?>"><?php echo '(' . $currency['code'] . ') ' . $currency['title']; ?></option>
-                            <?php } ?>
-                            <?php } ?>
-                        </select></td>
-                    </tr>
-                    <tr>
-                        <td><?php echo $entry_in_stock; ?></td>
-                        <td><select name="yandex_market_in_stock">
-                            <?php foreach ($stock_statuses as $stock_status) { ?>
-                            <?php if ($stock_status['stock_status_id'] == $yandex_market_in_stock) { ?>
-                            <option value="<?php echo $stock_status['stock_status_id']; ?>"
-                                    selected="selected"><?php echo $stock_status['name']; ?></option>
-                            <?php } else { ?>
-                            <option value="<?php echo $stock_status['stock_status_id']; ?>"><?php echo $stock_status['name']; ?></option>
-                            <?php } ?>
-                            <?php } ?>
-                        </select></td>
-                    </tr>
-                    <tr>
-                        <td><?php echo $entry_out_of_stock; ?></td>
-                        <td><select name="yandex_market_out_of_stock">
-                            <?php foreach ($stock_statuses as $stock_status) { ?>
-                            <?php if ($stock_status['stock_status_id'] == $yandex_market_out_of_stock) { ?>
-                            <option value="<?php echo $stock_status['stock_status_id']; ?>"
-                                    selected="selected"><?php echo $stock_status['name']; ?></option>
-                            <?php } else { ?>
-                            <option value="<?php echo $stock_status['stock_status_id']; ?>"><?php echo $stock_status['name']; ?></option>
-                            <?php } ?>
-                            <?php } ?>
-                        </select></td>
                     </tr>
                     <tr>
                         <td><?php echo $entry_data_feed; ?></td>
