@@ -83,6 +83,10 @@
                         </select></td>
                     </tr>
                     <!-- BRANDS ADDED-->
+
+                </table>
+            </form>
+                <table class="form">
                     <tr>
                         <td><?php echo $entry_stock_status; ?>
                             <select id="stock_status_id" name="stock_status_id">
@@ -103,7 +107,6 @@
                         <td><i><?php echo $data_feed; ?></i></td>
                     </tr>
                 </table>
-            </form>
         </div>
     </div>
 </div>

@@ -445,9 +445,9 @@ class ControllerFeedYandexMarket extends Controller
         $from = array('"', '&', '>', '<', '\'');
         $to = array('&quot;', '&amp;', '&gt;', '&lt;', '&apos;');
         $field = str_replace($from, $to, $field);
-        if ($this->from_charset != 'windows-1251') {
-            $field = iconv($this->from_charset, 'windows-1251//IGNORE', string()$field);
-        }
+//        if ($this->from_charset != 'windows-1251') {
+//            $field = iconv($this->from_charset, 'windows-1251//IGNORE', string()$field);
+//        }
         $field = preg_replace('#[\x00-\x08\x0B-\x0C\x0E-\x1F]+#is', ' ', $field);
 
         return trim($field);
