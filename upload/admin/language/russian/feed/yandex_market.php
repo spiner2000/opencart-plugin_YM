@@ -8,6 +8,9 @@ $_['text_success']       = 'Настройки модуля обновлены!'
 $_['text_select_all']    = 'Выделить всё';
 $_['text_unselect_all']  = 'Снять выделение';
 
+$_['entry_stock_status'] = 'Статус на складе';
+$_['entry_data_feed']    = 'Адрес ленты:';
+
 // Entry
 $_['entry_status']       = 'Статус:';
 $_['entry_data_feed']    = 'Адрес:';
