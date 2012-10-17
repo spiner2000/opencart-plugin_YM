@@ -23,6 +23,9 @@ class ControllerFeedYandexMarket extends Controller
 
             $this->redirect($this->url->link('extension/feed', 'token=' . $this->session->data['token'], 'SSL'));
         }
+            
+        $this->data['entry_data_feed']      = $this->language->get('entry_data_feed');
+        $this->data['entry_stock_status']   = $this->language->get('entry_stock_status');
 
         $this->data['heading_title'] = $this->language->get('heading_title');
 
@@ -147,6 +150,12 @@ class ControllerFeedYandexMarket extends Controller
         $this->response->setOutput($this->render(), $this->config->get('config_compression'));
     }
 
+    /**
+     * Отдает список производителей в формате JSON
+     * Вызывается по AJAX
+     *
+     * @return object Response
+     */
     public function brands()
     {
         $json = array(
