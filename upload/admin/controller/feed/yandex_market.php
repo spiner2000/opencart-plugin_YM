@@ -1,15 +1,22 @@
 <?php
 class ControllerFeedYandexMarket extends Controller
 {
-
     private $error = array();
 
+    /**
+     * Основная страница настроек модуля
+     *
+     * @return object Response
+     */
     public function index()
     {
+        // Подключение файла локализации
         $this->load->language('feed/yandex_market');
 
+        // Установка заголовка документа
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Подключение модели усправление настройками
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && ($this->validate())) {
@@ -23,7 +30,11 @@ class ControllerFeedYandexMarket extends Controller
 
             $this->redirect($this->url->link('extension/feed', 'token=' . $this->session->data['token'], 'SSL'));
         }
-            
+
+        // Add custom css
+        $this->document->addStyle(HTTPS_SERVER . 'view/stylesheet/feed/yandex_market.css');
+
+        // Получение локализированных значений для ключевых элементов страницы
         $this->data['entry_data_feed']      = $this->language->get('entry_data_feed');
         $this->data['entry_stock_status']   = $this->language->get('entry_stock_status');
 
@@ -48,12 +59,14 @@ class ControllerFeedYandexMarket extends Controller
 
         $this->data['tab_general'] = $this->language->get('tab_general');
 
+        // Добавление текста ошибки если она существует
         if (isset($this->error['warning'])) {
             $this->data['error_warning'] = $this->error['warning'];
         } else {
             $this->data['error_warning'] = '';
         }
 
+        // Формирование "Хлебных крошек"
         $this->data['breadcrumbs'] = array();
 
         $this->data['breadcrumbs'][] = array(
@@ -75,8 +88,8 @@ class ControllerFeedYandexMarket extends Controller
         );
 
         $this->data['action'] = $this->url->link('feed/yandex_market', 'token=' . $this->session->data['token'], 'SSL');
-
         $this->data['cancel'] = $this->url->link('extension/feed', 'token=' . $this->session->data['token'], 'SSL');
+        $this->data['token'] = $this->session->data['token'];
 
         if (isset($this->request->post['yandex_market_status'])) {
             $this->data['yandex_market_status'] = $this->request->post['yandex_market_status'];
@@ -201,9 +214,9 @@ class ControllerFeedYandexMarket extends Controller
 
             foreach ($this->model_catalog_manufacturer->getManufacturers() as $m) {
                 $json['results'][] = array(
-                    'checked' => (is_array($status_brands) && in_array($m['manufacturer_id'], $status_brands)),
-                    'id' => $m['manufacturer_id'],
-                    'name' => $m['name'],
+                    'checked'   => (is_array($status_brands) && in_array($m['manufacturer_id'], $status_brands)),
+                    'id'        => $m['manufacturer_id'],
+                    'name'      => $m['name'],
                 );
             }
         }
