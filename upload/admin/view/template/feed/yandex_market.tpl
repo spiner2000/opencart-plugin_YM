@@ -13,7 +13,7 @@
         <div class="heading">
             <h1><img src="view/image/feed.png" alt=""/> <?php echo $heading_title; ?></h1>
 
-            <div class="buttons"><a onclick="$('#form').submit();"
+            <div class="buttons"><a id="form_save_button"
                                     class="button"><span><?php echo $button_save; ?></span></a><a
                     onclick="location = '<?php echo $cancel; ?>';"
                     class="button"><span><?php echo $button_cancel; ?></span></a></div>
@@ -115,6 +115,11 @@
 <script id="source" language="javascript" type="text/javascript">
     $(function () {
 
+        $('#form_save_button').click(function(){
+            saveFormData();
+            $('#form').submit();
+        });
+
         var _fc = false;
         var _ss_id = 0;
         var brandsList = $('#brands_list');
@@ -198,7 +203,7 @@
         $('#set_all_brands').live('click',function(){
             if(this.checked){
                 $('input',brandsList).not(this).not('#products_available')
-                        .attr('disabled',  'disabled')
+
                         .attr('checked',  'checked');
                 $('label.brand_label',brandsList).css('color',  '#ccc');
 
@@ -210,7 +215,6 @@
             }
         });
 
-        $('#form_save_button').click(function(){saveFormData('<?php echo $cancel; ?>');});
 
         $('#stock_status_id').change(function(){
             if(_fc){
