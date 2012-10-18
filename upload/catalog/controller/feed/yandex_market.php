@@ -68,15 +68,17 @@ class ControllerFeedYandexMarket extends Controller
             $vendor_required = false; // true - только товары у которых задан производитель, необходимо для 'vendor.model'
             $products = $this->model_export_yandex_market->getProduct($allowed_categories, $out_of_stock_id, $vendor_required);
 
+
+            //отфильтровуем продукты по доступным брендам
+            $products = $this->model_export_yandex_market->brandsFilter($products);
+            var_dump($products);exit;
+
             foreach ($products as $product) {
                 $data = array();
 
                 // Атрибуты товарного предложения
                 $data['id'] = $product['product_id'];
-//                $data['type'] = 'vendor.model';
-                $data['available'] = ($product['quantity'] > 0 || $product['stock_status_id'] == $in_stock_id);
-//                $data['bid'] = 10;
-//                $data['cbid'] = 15;
+                $data['available'] = ($product['quantity'] > 0 || $product['available'] == 'true');
 
                 // Параметры товарного предложения
                 $data['url'] = $this->url->link('product/product', 'path=' . $this->getPath($product['category_id']) . '&product_id=' . $product['product_id']);
@@ -84,34 +86,15 @@ class ControllerFeedYandexMarket extends Controller
                 $data['currencyId'] = $offers_currency;
                 $data['categoryId'] = $product['category_id'];
                 $data['delivery'] = 'true';
-//                $data['local_delivery_cost'] = 100;
                 $data['name'] = $product['name'];
                 $data['vendor'] = $product['manufacturer'];
                 $data['vendorCode'] = $product['model'];
                 $data['model'] = $product['name'];
                 $data['description'] = $product['description'];
-//                $data['manufacturer_warranty'] = 'true';
-//                $data['barcode'] = $product['sku'];
                 if ($product['image']) {
                     $data['picture'] = $this->model_tool_image->resize($product['image'], 100, 100);
                 }
-                /*
-                                // пример структуры массива для вывода параметров
-                                $data['param'] = array(
-                                    array(
-                                        'name'=>'Wi-Fi',
-                                        'value'=>'есть'
-                                    ), array(
-                                        'name'=>'Размер экрана',
-                                        'unit'=>'дюйм',
-                                        'value'=>'20'
-                                    ), array(
-                                        'name'=>'Вес',
-                                        'unit'=>'кг',
-                                        'value'=>'4.6'
-                                    )
-                                );
-                */
+
                 $this->setOffer($data);
             }
 
@@ -307,9 +290,6 @@ class ControllerFeedYandexMarket extends Controller
         }
 
         $data = array_intersect_key($data, $allowed_tags);
-//        if (isset($data['tarifplan']) && !isset($data['provider'])) {
-//            unset($data['tarifplan']);
-//        }
 
         $allowed_tags = array_intersect_key($allowed_tags, $data);
 
