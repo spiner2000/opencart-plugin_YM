@@ -15,10 +15,9 @@ class ModelExportYandexMarket extends Model {
     public function brandsFilter($products) {
         // Получаем настройки модуля экспорта
         $ym_stock_brands = (array) unserialize($this->config->get('yandex_market_stock_brands'));
-        var_dump($ym_stock_brands);
 
         // перебираем все продукты, нужные добавляем в ленту
-        foreach ($products as &$product) {
+        foreach ($products as $key => &$product) {
             $product['available'] = 'false';
 
             // Пропускаем все товары, у которых нет в наличии статуса
@@ -26,27 +25,29 @@ class ModelExportYandexMarket extends Model {
                 $ym_brands = isset($ym_stock_brands[$product['stock_status_id']]['manufacturers'])
                     ? $ym_stock_brands[$product['stock_status_id']]['manufacturers']
                     : null;
-
                 // Атрибут доступности товара для Яндекс Маркет
                 if(isset($ym_stock_brands[$product['stock_status_id']]['available'])
                     && $ym_stock_brands[$product['stock_status_id']]['available']){
                     $product['available'] = 'true';
                 }
 
-                if (false === (is_bool($ym_brands) && ($ym_brands == true))
-                    && (false === (is_array($ym_brands) && in_array($product['manufacturer_id'], $ym_brands)))){
-                    // Если производитель товара не найден в отмеченых брэндах Yandex Market - пропускаем
-                    unset($product);
-                    continue;
+                if ((is_array($ym_brands)) && (count($ym_brands)>0)){
+
+                    if (!in_array($product['manufacturer_id'],$ym_brands)) {
+                        //если производитель не отмечен удаляем
+                        unset($products[$key]);
+                    }
+
+                }else { //если для этого типа (stock_id) товара совсем нет отмеченых производителей то убираем
+                    unset($products[$key]);
                 }
+
             }else{
                 // Если статус товара не найден в настройках Yandex Market - пропускаем
-                exit;
-                unset($product);
+
+                unset($products[$key]);
                 continue;
             }
-
-
         }
         return $products;
     }
