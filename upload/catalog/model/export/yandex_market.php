@@ -44,7 +44,6 @@ class ModelExportYandexMarket extends Model {
 
             }else{
                 // Если статус товара не найден в настройках Yandex Market - пропускаем
-
                 unset($products[$key]);
                 continue;
             }

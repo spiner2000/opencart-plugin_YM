@@ -71,7 +71,6 @@ class ControllerFeedYandexMarket extends Controller
 
             //отфильтровуем продукты по доступным брендам
             $products = $this->model_export_yandex_market->brandsFilter($products);
-            var_dump($products);exit;
 
             foreach ($products as $product) {
                 $data = array();
